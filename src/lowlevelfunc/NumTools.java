@@ -467,9 +467,21 @@ public class NumTools {
             
     }
     
+    //Test main
     public static void main(String[] args) {
         
+        if(args.length != 2) {
+            
+            System.err.println("Usage: java lowlevelfunc.NumTools dec_number bin_length");
+            System.exit(1);
+            
+        }
         
+        int dNum = Integer.parseInt(args[0]);
+        int length = Integer.parseInt(args[1]);
+        boolean[] bNum = dec2Bin(dNum, length);
+        
+        System.out.println("Binary conversion of "+dNum+": "+bool2Bin(bNum));
         
     }
 
