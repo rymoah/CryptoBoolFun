@@ -504,44 +504,5 @@ public class NumTools {
         return binstr;
             
     }
-    
-    //Test main
-    public static void main(String[] args) {
-        
-        if(args.length != 4) {
-            
-            System.err.println("Usage: java lowlevelfunc.NumTools dec_number bin_length big_dec_number big_dec_length");
-            System.exit(1);
-            
-        }
-        
-        int dNum = Integer.parseInt(args[0]);
-        int length = Integer.parseInt(args[1]);
-        int hexlength = length/4;
-        boolean[] bNum = dec2Bin(dNum, length);
-        String hexnum = bin2Hex(bNum);
-        
-        System.out.println("Binary conversion of "+dNum+": "+bool2Bin(bNum));
-        System.out.println("Hexadecimal conversion of "+dNum+": "+dec2Hex(dNum, hexlength));
-        System.out.println("Decimal conversion of "+bool2Bin(bNum)+": "+bin2DecInt(bNum));
-        System.out.println("Hexadecimal conversion of "+bool2Bin(bNum)+": "+hexnum);
-        System.out.println("Binary conversion of "+hexnum+": "+bool2Bin(hex2Bin(hexnum)));
-        System.out.println("Decimal conversion of "+hexnum+": "+hex2DecInt(hexnum));
-        
-        BigInteger bigDNum = new BigInteger(args[2]);
-        int biglength = Integer.parseInt(args[3]);
-        int bighexlength = biglength/4;
-        
-        boolean[] bigBNum = dec2Bin(bigDNum, biglength);
-        String bighexnum = bin2Hex(bigBNum);
-        
-        System.out.println("\nBinary conversion of "+bigDNum+": "+bool2Bin(bigBNum));
-        System.out.println("Hexadecimal conversion of "+bigDNum+": "+dec2Hex(bigDNum, bighexlength));
-        System.out.println("Decimal conversion of "+bool2Bin(bigBNum)+": "+bin2DecBig(bigBNum));
-        System.out.println("Hexadecimal conversion of "+bool2Bin(bigBNum)+": "+bighexnum);
-        System.out.println("Binary conversion of "+bighexnum+": "+bool2Bin(hex2Bin(bighexnum)));
-        System.out.println("Decimal conversion of "+bighexnum+": "+hex2DecBig(bighexnum));
-        
-    }
 
 }

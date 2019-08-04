@@ -1,7 +1,5 @@
 package lowlevelfunc;
 
-import java.util.Vector;
-
 /**
  * Utilities and tools to manipulate binary strings, represented as boolean
  * arrays.
