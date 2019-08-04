@@ -58,8 +58,10 @@ public class CryptoProperties {
         
         //Call the FMT method to compute ANF coefficients and algebraic degree
         int algdeg = BoolTransf.computeFMT(anfcoeffs, 0, anfcoeffs.length);
+        String anfexpr = BoolTransf.computeANFExpr(anfcoeffs, boolfun.getNvar());
         boolfun.setAnfcoeffs(anfcoeffs);
         boolfun.setAlgdeg(algdeg);
+        boolfun.setAnfexpr(anfexpr);
         
     }
     
@@ -95,7 +97,10 @@ public class CryptoProperties {
     public static int computeOrder(int[] devs) {
         
         int k=0;
-        while(devs[k]==0 && k<devs.length) {
+        
+        //Note: order of the conditions in this while loop matter (check
+        //if dev[k] is equal to 0 only if k is less than the length of the array)
+        while(k<devs.length && devs[k]==0) {
             
             k++;
             
@@ -236,14 +241,16 @@ public class CryptoProperties {
         
         //Call computeAC() with accoeffs and mode. The flag mode has the same
         //semantic in computeACProp() and computeAC().
-        int acmax = BoolTransf.computeAC(accoeffs, true);
+        int acmax = BoolTransf.computeAC(accoeffs, mode);
         boolfun.setAccoeffs(accoeffs);
         boolfun.setAcmax(acmax);
         
         //Compute Sum-of-Squares Indicator, propagation criteria deviations array,
         //order of propagation criterion and number of nonzero linear structures
         int ssi = computeSSI(accoeffs);
+        boolfun.setSsi(ssi);
         int nzlin = countNZLinStruct(accoeffs);
+        boolfun.setNlinstruct(nzlin);
         int[] pcd = BoolTransf.computeDevs(accoeffs, indices);
         boolfun.setPcd(pcd);
         int pcord = computeOrder(pcd);
@@ -292,8 +299,8 @@ public class CryptoProperties {
         
         int nvar = boolfun.getNvar();
         System.out.println("\nFunction Decimal code: "+boolfun.getDeccode());
-        System.out.println("\nFunction Hex code: "+boolfun.getHexcode());
-        System.out.println("\nNumber of variables: "+nvar);
+        System.out.println("Function Hex code: "+boolfun.getHexcode());
+        System.out.println("Number of variables: "+nvar);
         
     }
     
@@ -363,8 +370,8 @@ public class CryptoProperties {
     public static void printCryptoProp(BooleanFunction boolfun, int indprop) {
         
         System.out.println("\n\nCryptographic Properties");
-        System.out.print("Weight = "+boolfun.getWeight()+"\t");
-        System.out.print("Balanced = "+boolfun.isBalanced()+"\t");
+        System.out.print("Weight = "+boolfun.getWeight()+"; ");
+        System.out.print("Balanced = "+boolfun.isBalanced()+"; ");
         System.out.println("Algebraic degree = "+boolfun.getAlgdeg());
         System.out.println("\nSpectral radius = "+boolfun.getSprad()+
                 "; Nonlinearity = "+boolfun.getNlin());
@@ -379,7 +386,7 @@ public class CryptoProperties {
         if(boolfun.getCiord()>0) {
             
             if(boolfun.isBalanced()) {
-                System.out.println("\nThe function is"+boolfun.getCiord()+
+                System.out.println("\nThe function is "+boolfun.getCiord()+
                         "-resilient");
             } else {
                 System.out.println("\nThe function is correlation immune of"

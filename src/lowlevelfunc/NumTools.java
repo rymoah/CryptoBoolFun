@@ -504,5 +504,21 @@ public class NumTools {
         return binstr;
             
     }
+    
+    public static boolean[] bin2Bool(String binstr) {
+        
+        boolean[] boolstr = new boolean[binstr.length()];
+        
+        for(int i=0; i<binstr.length(); i++) {
+            
+            if(binstr.charAt(i)=='1') {
+                boolstr[i] = true;
+            }
+            
+        }
+        
+        return boolstr;
+        
+    }
 
 }
