@@ -31,7 +31,7 @@ public class BoolTransf {
      * @return          The spectral radius of the function, computed as the
      *                  maximum absolute value of the Walsh transform
      */
-    public static int calcFWT(int[] vector, int start, int length) {
+    public static int computeFWT(int[] vector, int start, int length) {
         
         int half = length/2;
         
@@ -48,8 +48,8 @@ public class BoolTransf {
         //Recursive call on v0 and v1.
         if(half>1) {
             
-            int val1 = calcFWT(vector,start,half);
-            int val2 = calcFWT(vector,start+half,half);
+            int val1 = computeFWT(vector,start,half);
+            int val2 = computeFWT(vector,start+half,half);
             
             //At the end of the recursive calls, compare val1 and val2 to decide
             //what is the spectral radius in the portion of truth table included
@@ -99,7 +99,7 @@ public class BoolTransf {
      *                  transform).
      * 
      */
-    public static int calcInvFWT(int[] vector, int start, int length) {
+    public static int computeInvFWT(int[] vector, int start, int length) {
         
         int half = length/2;
         
@@ -115,8 +115,8 @@ public class BoolTransf {
         //Recursive call on v0 and v1.
         if(half>1) {
             
-            int val1 = calcInvFWT(vector,start,half);
-            int val2 = calcInvFWT(vector,start+half,half);
+            int val1 = computeInvFWT(vector,start,half);
+            int val2 = computeInvFWT(vector,start+half,half);
             
             //At the end of the recursive calls, compare val1 and val2 to decide
             //what is the spectral radius in the portion of truth table included
@@ -186,13 +186,13 @@ public class BoolTransf {
      *                  (false), used to avoid unnecessary computations.
      * @return          The maximum autocorrelation coefficient of the function.
      */
-    public static int calcAC(int[] vector, boolean mode) {
+    public static int computeAC(int[] vector, boolean mode) {
         
         //(Step 1): Compute the Walsh spectrum of the function, if vector
         //represents the truth table of the function.
         if(mode) {
             
-            calcFWT(vector, 0, vector.length);
+            computeFWT(vector, 0, vector.length);
             
         }
         
@@ -203,7 +203,7 @@ public class BoolTransf {
         
         //Step 3: Compute the inverse WT of the squared spectrum
         //and return the maximum autocorrelation coefficient
-        int acmax = calcInvFWT(vector, 0, vector.length);
+        int acmax = computeInvFWT(vector, 0, vector.length);
         return acmax;
         
     }
@@ -225,7 +225,7 @@ public class BoolTransf {
      * @return          An array containing the maximum absolute values in coeffs
      *                  at the positions specified by indices.
      */
-    public static int[] calcDevs(int[] coeffs, int[][] indices) {
+    public static int[] computeDevs(int[] coeffs, int[][] indices) {
         
         int[] devs = new int[indices.length];
         
@@ -283,7 +283,7 @@ public class BoolTransf {
      *                  starting from start.
      * @return          The algebraic degree
      */
-    public static int calcFMT(boolean[] vector, int start, int length) {
+    public static int computeFMT(boolean[] vector, int start, int length) {
         
         int half = length/2;
         
@@ -296,8 +296,8 @@ public class BoolTransf {
         //Recursive call on v0 and v1.
         if(half>1) {
             
-            int val1 = calcFMT(vector,start,half);
-            int val2 = calcFMT(vector,start+half,half);
+            int val1 = computeFMT(vector,start,half);
+            int val2 = computeFMT(vector,start+half,half);
             
             //At the end of the recursive calls, compare val1 and val2 to decide
             //what is the algebraic degree in the portion of ANF included
@@ -365,7 +365,7 @@ public class BoolTransf {
      * @return          A string representing the algebraic expression of the
      *                  ANF of the function, as a multivariate polynomial.
      */
-    public static String calcANFExpr(boolean[] anfcoeffs, int nvar) {
+    public static String computeANFExpr(boolean[] anfcoeffs, int nvar) {
         
         //Find the last nonzero coefficient in the ANF
         int last = 0;
@@ -422,27 +422,6 @@ public class BoolTransf {
         }
         
         return anfexpr;
-        
-    }
-    
-    public static void main(String[] args) {
-        
-        int[] polfunc = {1, -1, -1, -1, -1, 1, 1, 1};
-        calcFWT(polfunc, 0, polfunc.length);
-        
-        System.out.println("Walsh spectrum:");
-        for(int i=0; i<polfunc.length; i++) {
-            System.out.println("F("+i+") = "+polfunc[i]);
-        }
-        
-        calcInvFWT(polfunc, 0, polfunc.length);
-        
-        System.out.println("Original function from IWT:");
-        for(int i=0; i<polfunc.length; i++) {
-            System.out.println("F("+i+") = "+polfunc[i]);
-        }
-        
-        
         
     }
     

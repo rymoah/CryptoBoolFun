@@ -115,7 +115,7 @@ public class CombTools {
     /**
      * Generates all the (s+t)-bit strings with Hamming weight t, in binary
      * notation. The algorithm is described in Knuth, "The Art of Computer
-     * Programming, pre-Fascicle 3A" (Algorithm L, p. 4).
+     * Programming, pre-Fascicle 4A" (Algorithm L, p. 4).
      * 
      * @param s         number of 0s in the bitstrings
      * @param t         number of 1s in the bitstrings
@@ -166,6 +166,41 @@ public class CombTools {
         
         return combset;
       
+    }
+    
+    /**
+     * Creates a set of indices ordered by increasing Hamming weights. Given
+     * the maximum weight as an input parameter, the method creates an int
+     * matrix, where for all i between 0 (included) and maxweight (excluded) the
+     * i-th row is an array holding the int indices whose binary representation
+     * have Hamming weight i+1.
+     * 
+     * Notice that, in the order above, weight 0 is not considered (so indices[0]
+     * will hold the indices of Hamming weight 1).
+     * 
+     * This method can be used in the computation of cryptographic properties
+     * such as correlation immunity and propagation criteria, since they are
+     * defined by subsets of binary vectors up to a certain Hamming weight.
+     * 
+     * 
+     * @param maxweight     Maximum Hamming weight to be reached in the creation
+     *                      of the indices
+     * @return              An int matrix where each row i in [0..maxweight-1] is
+     *                      an int array holding the integer representations of
+     *                      the binary vectors of Hamming weight i+1
+     * 
+     */
+    public static int[][] createIndices(int maxweight) {
+        
+        int[][] indices = new int[maxweight][];
+        for(int i=0; i<maxweight; i++) {
+            
+            indices[i] = CombTools.genBinCombs(maxweight-i-1, i+1);
+            
+        }
+        
+        return indices;
+        
     }
     
 }

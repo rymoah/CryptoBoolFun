@@ -72,28 +72,6 @@ public class BinTools {
         
     }
 
-   /**
-    * Verifies whether a boolean array is balanced (that is, it contains an
-    * equal number of true (1) and false (0).
-    * 
-    * @param   binStr a byte array
-    * @return  true if binStr is balanced, false if it is not.
-    */
-   public static boolean isBalanced(boolean[] binStr) {
-
-        int hwt = hammingWeight(binStr);
-
-        if(hwt == binStr.length/2) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-    }
-
     /**
      * Computes the 1-complement of a boolean array
      * 
