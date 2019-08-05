@@ -1,2 +1,2 @@
-# BoolFunProperties
+# CryptoBoolFun
 Java library for computing cryptographic properties of Boolean functions
