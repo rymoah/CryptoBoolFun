@@ -5,3 +5,4 @@ Java library for computing cryptographic properties of Boolean functions, such a
 * Nonlinearity
 * Correlation-Immunity
 * Propagation Criteria
+* Algebraic Degree
