@@ -6,4 +6,4 @@ Java library for computing cryptographic properties of Boolean functions, such a
 * Correlation-Immunity
 * Propagation Criteria
 * Algebraic Degree
-* Transform representations such as Walsh spectrum and ANF
+* Transform representations such as Walsh spectrum and Algebraic Normal Form (ANF)
